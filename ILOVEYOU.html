@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta de Amor para Esther</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ffcce6, #ff99cc);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .carousel {
+            width: 100%;
+            height: 250px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            position: relative;
+            transition: all 0.5s ease;
+        }
+
+        .carousel-inner {
+            display: flex;
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            height: 100%;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #fff;
+        }
+
+        .love-letter {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transform: rotate(-1deg);
+            animation: float 4s ease-in-out infinite;
+            border: 2px solid #ff6699;
+            margin-bottom: 20px;
+        }
+
+        .hidden-letter {
+            display: none;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transform: rotate(1deg);
+            animation: float 4s ease-in-out infinite;
+            border: 2px solid #ff3366;
+            margin-bottom: 20px;
+        }
+
+        .love-letter h1, .hidden-letter h1 {
+            color: #ff3366;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .love-letter p, .hidden-letter p {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        .signature {
+            font-style: italic;
+            color: #ff3366;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .love-btn {
+            background: linear-gradient(to right, #ff6b6b, #ff8e8e);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+
+        .love-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .music-btn {
+            background: linear-gradient(to right, #4b6cb7, #182848);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            cursor: pointer;
+            margin: 10px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .music-btn:hover {
+            transform: translateY(-3px) scale(1.1);
+        }
+
+        .special-photo {
+            width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+            margin: 15px 0;
+            border-radius: 10px;
+            display: block;
+        }
+
+        .spark {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkle 1s ease-out forwards;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            pointer-events: none;
+            font-size: 20px;
+            animation: float-heart 3s linear forwards;
+        }
+
+        .heart-rain {
+            position: fixed;
+            top: -10%;
+            transform: translateY(0);
+            animation: heart-fall linear forwards;
+            font-size: 20px;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(-1deg); }
+            50% { transform: translateY(-8px) rotate(1deg); }
+        }
+
+        @keyframes sparkle {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(15);
+                opacity: 0;
+            }
+        }
+
+        @keyframes float-heart {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-150px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes heart-fall {
+            to {
+                transform: translateY(110vh);
+            }
+        }
+
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .indicator.active {
+            background-color: #ff3366;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+        
+        .song-title {
+            color: white;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-top: 10px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Carrusel de imágenes -->
+        <div class="carousel" id="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item" style="background-image: url('ESTHER1.jpeg');"></div>
+                <div class="carousel-item" style="background-image: url('ESTHER2.jpeg');"></div>
+                <div class="carousel-item" style="background-image: url('ESTHER3.jpeg');"></div>
+                <div class="carousel-item" style="background-image: url('ESTHER4.jpeg');"></div>
+            </div>
+        </div>
+        <div class="carousel-indicators">
+            <div class="indicator active" data-index="0"></div>
+            <div class="indicator" data-index="1"></div>
+            <div class="indicator" data-index="2"></div>
+            <div class="indicator" data-index="3"></div>
+        </div>
+
+        <!-- Carta de amor principal -->
+        <div class="love-letter" id="loveLetter">
+            <h1>Para ti mi amor 💌</h1>
+            <p>Te amo muchisimo, de aqui hasta la luna</p>
+            <p>En pasitos de tortuga ❤️🐢</p>
+            <p>Mi princesa 👸💘</p>
+            <div class="signature">Con todo mi amor</div>
+        </div>
+
+        <!-- Carta oculta que aparecerá -->
+        <div class="hidden-letter" id="hiddenLetter">
+            <h1>TE AMO 💖</h1>
+            <img src="ESTHER5.jpeg" class="special-photo">
+            <p>Eres la persona más especial en mi vida</p>
+            <p>Cada día a tu lado es un regalo 💝</p>
+            <div class="signature">Para siempre tuyo</div>
+            
+            <button class="love-btn" id="backBtn">Volver al inicio</button>
+        </div>
+
+        <button class="love-btn" id="specialBtn">Presiona aquí mi amor</button>
+        
+        <div>
+            <button class="music-btn" id="musicBtn" title="Reproducir música">
+                <i class="fas fa-music"></i>
+            </button>
+            <div class="song-title" id="songTitle"></div>
+        </div>
+    </div>
+
+    <!-- Reproductor de audio HTML5 (oculto) -->
+    <audio id="audioPlayer" loop>
+        <!-- Reemplaza esta URL con la ubicación real de tu archivo de audio -->
+        <source src="Natanael Cano - Mi Bello Angel [Official Video].mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // ===== REPRODUCTOR DE AUDIO =====
+            const audioPlayer = document.getElementById('audioPlayer');
+            const musicBtn = document.getElementById('musicBtn');
+            const musicIcon = musicBtn.querySelector('i');
+            const songTitle = document.getElementById('songTitle');
+            
+            // Controlar el botón de música
+            musicBtn.addEventListener('click', function() {
+                if (audioPlayer.paused) {
+                    audioPlayer.play()
+                        .then(() => {
+                            musicIcon.classList.replace('fa-music', 'fa-pause');
+                            songTitle.style.display = 'inline-block';
+                            createHearts(10);
+                        })
+                        .catch(error => {
+                            console.error("Error al reproducir:", error);
+                            alert("Error al cargar la música. Asegúrate de que el archivo 'Natanael Cano - Mi Bello Angel [Official Video].mp3' esté en la misma carpeta.");
+                        });
+                } else {
+                    audioPlayer.pause();
+                    musicIcon.classList.replace('fa-pause', 'fa-music');
+                    songTitle.style.display = 'none';
+                    createHearts(5);
+                }
+            });
+
+            // ===== CARRUSEL Y CARTAS =====
+            const carousel = document.getElementById('carousel');
+            const carouselIndicators = document.querySelector('.carousel-indicators');
+            const loveLetter = document.getElementById('loveLetter');
+            const hiddenLetter = document.getElementById('hiddenLetter');
+            const specialBtn = document.getElementById('specialBtn');
+            const backBtn = document.getElementById('backBtn');
+            
+            const carouselInner = document.querySelector('.carousel-inner');
+            const items = document.querySelectorAll('.carousel-item');
+            const indicators = document.querySelectorAll('.indicator');
+            let currentIndex = 0;
+            const itemCount = items.length;
+            
+            function goToSlide(index) {
+                currentIndex = index;
+                carouselInner.style.transform = `translateX(-${currentIndex * 100}%)`;
+                indicators.forEach((indicator, i) => {
+                    indicator.classList.toggle('active', i === currentIndex);
+                });
+            }
+            
+            let carouselInterval = setInterval(() => {
+                const nextIndex = (currentIndex + 1) % itemCount;
+                goToSlide(nextIndex);
+            }, 2000);
+            
+            indicators.forEach(indicator => {
+                indicator.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    goToSlide(index);
+                    clearInterval(carouselInterval);
+                    carouselInterval = setInterval(() => {
+                        const nextIndex = (currentIndex + 1) % itemCount;
+                        goToSlide(nextIndex);
+                    }, 2000);
+                });
+            });
+            
+            specialBtn.addEventListener('click', function() {
+                carousel.classList.add('hidden');
+                carouselIndicators.classList.add('hidden');
+                loveLetter.classList.add('hidden');
+                this.classList.add('hidden');
+                hiddenLetter.style.display = 'block';
+                createHearts(20);
+            });
+            
+            backBtn.addEventListener('click', function() {
+                carousel.classList.remove('hidden');
+                carouselIndicators.classList.remove('hidden');
+                loveLetter.classList.remove('hidden');
+                specialBtn.classList.remove('hidden');
+                hiddenLetter.style.display = 'none';
+                createHearts(20);
+            });
+
+            // ===== EFECTOS DE CORAZONES =====
+            document.addEventListener('click', function(e) {
+                createHearts(15);
+                createSpark(e.clientX, e.clientY);
+            });
+
+            function createHearts(count) {
+                for (let i = 0; i < count; i++) {
+                    setTimeout(() => {
+                        const heart = document.createElement('div');
+                        heart.innerHTML = ['❤️', '💖', '💘', '💝'][Math.floor(Math.random() * 4)];
+                        heart.classList.add('heart-rain');
+                        
+                        const xPos = Math.random() * window.innerWidth;
+                        const size = Math.random() * 20 + 15;
+                        const duration = Math.random() * 3 + 2;
+                        
+                        heart.style.left = `${xPos}px`;
+                        heart.style.fontSize = `${size}px`;
+                        heart.style.animationDuration = `${duration}s`;
+                        
+                        document.body.appendChild(heart);
+                        setTimeout(() => heart.remove(), duration * 1000);
+                    }, i * 100);
+                }
+            }
+
+            function createSpark(x, y) {
+                const colors = ['#ff3366', '#ff6699', '#ff99cc', '#ffccff', '#ff0066'];
+                const spark = document.createElement('div');
+                spark.classList.add('spark');
+                
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const size = Math.random() * 4 + 2;
+                
+                spark.style.backgroundColor = color;
+                spark.style.width = `${size}px`;
+                spark.style.height = `${size}px`;
+                spark.style.left = `${x}px`;
+                spark.style.top = `${y}px`;
+                
+                document.body.appendChild(spark);
+                setTimeout(() => spark.remove(), 1000);
+            }
+
+            // Cambio de color de fondo
+            let hue = 330;
+            setInterval(() => {
+                hue = (hue + 0.5) % 360;
+                document.body.style.background = `linear-gradient(135deg, hsl(${hue}, 100%, 90%), hsl(${(hue + 30) % 360}, 100%, 85%)`;
+            }, 100);
+        });
+    </script>
+</body>
+</html>
